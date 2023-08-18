@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {},
+  "extensions": {
+    "recommendations": [
+      "mikestead.dotenv",
+      "editorconfig.editorconfig",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "bradlc.vscode-tailwindcss"
+    ]
+  },
+  "launch": {
+    "configurations": []
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": []
+  }
+}
