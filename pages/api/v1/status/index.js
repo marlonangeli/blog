@@ -1,5 +1,12 @@
+import { NextApiRequest, NextApiResponse } from "next";
+
 import database from "infra/database.js";
 
+/**
+ *
+ * @param {NextApiRequest} request
+ * @param {NextApiResponse} response
+ */
 async function status(request, response) {
   const updatedAt = new Date().toISOString();
 
