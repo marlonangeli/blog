@@ -9,15 +9,30 @@ import migrationHandler from "node-pg-migrate";
  * @param {NextApiResponse} response
  */
 export default async function migrations(request, response) {
-  const migrations = await migrationHandler({
+  const migrationsOptions = {
     direction: "up",
     dir: join("infra", "migrations"),
     databaseUrl: process.env.DATABASE_URL,
     migrationsTable: "pgmigrations",
-    dryRun: request.method === "GET" ? true : false,
+    dryRun: true,
     verbose: true,
     noLock: true,
-  });
+  };
 
-  response.status(200).json(migrations);
+  if (request.method === "POST") {
+    const migratedMigrations = await migrationHandler({
+      ...migrationsOptions,
+      dryRun: false,
+    });
+
+    return response
+      .status(migratedMigrations.length === 0 ? 200 : 201)
+      .json(migratedMigrations);
+  } else if (request.method === "GET") {
+    const pendingMigrations = await migrationHandler({
+      ...migrationsOptions,
+    });
+
+    return response.status(200).json(pendingMigrations);
+  }
 }
